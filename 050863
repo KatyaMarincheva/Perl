@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+my $s =  <<EOF;
+Program title: Primes
+Author: Kern
+Corporation: Gold
+Phone: +1-503-555-0091
+Date: Tues April 9, 2005
+Version: 6.7
+Level: Alpha
+EOF
+
+print change($s, "Ladder", "1.1"). "\n";
+
+sub change {
+    my ($a, $b, $c) = (@_);
+
+if ($a =~ /(Pr.+\n)(A.+\n)(C.+\n)(Phone: \+1-\d{3}-\d{3}-\d{4}\n)(D.+\n)Version: (\d+.\d+)[^.]+/m) {
+        my $version = $6 eq "2.0" ? $6 : $c;
+        $a =~ s/(Pr.+\n)(A.+\n)(C.+\n)(Phone: \+1-\d{3}-\d{3}-\d{4}\n)(D.+\n)Version: (\d+.\d+)[^.]+/Program: $b Author: g964 Phone: +1-503-555-0090 Date: 2019-01-01 Version: $version/m;
+        return $a;
+        } else {
+        return "ERROR: VERSION or PHONE";
+        }
+}
